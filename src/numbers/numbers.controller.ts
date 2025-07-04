@@ -16,12 +16,11 @@ export class NumbersController {
   }
 
   @Get('draw')
-  draw() {
-    return this.svc.drawWinner().then(w =>
-      w !== null
-        ? { winner: w }
-        : { message: 'No hay números para sortear' },
-    );
+  async draw() {
+    const w = await this.svc.drawWinner();
+    return w !== null
+      ? { winner: w }
+      : { message: 'No hay números para sortear' };
   }
   @Get('validate/:value')
   validate(@Param('value') value: string) {
